@@ -109,27 +109,41 @@
   .btn-ghost{background:var(--surface);color:var(--navy);border-color:var(--border);}
   .btn-block{width:100%;}
 
-  /* ---------- Floating survey button ---------- */
-  .floating-survey{
-    position:fixed;right:24px;bottom:24px;z-index:60;
-    display:inline-flex;align-items:center;gap:12px;
-    padding:8px 22px 8px 8px;border-radius:999px;
+  /* ---------- Floating panel (survey / contact) ---------- */
+  .floating-panel{
+    position:fixed;right:24px;bottom:24px;z-index:60;width:236px;
+    border-radius:16px;overflow:hidden;background:var(--surface);
+    box-shadow:0 20px 44px -18px rgba(20,32,54,.45);
+    border:1px solid var(--border);
+  }
+  .floating-row{
+    display:flex;align-items:center;gap:12px;padding:13px 14px;
+    color:var(--ink);border-bottom:1px solid var(--border);
+    transition:background .15s ease;
+  }
+  .floating-row:last-child{border-bottom:none;}
+  .floating-panel:has(.floating-row[hidden]) .floating-row:not([hidden]){border-bottom:none;}
+  .floating-row:hover{background:var(--bg-alt);}
+  .floating-row--accent{
     background:linear-gradient(155deg, #E6C567 0%, var(--gold) 62%, #A9801F 100%);
-    color:var(--on-gold);border:1px solid rgba(36,26,5,.18);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.55), 0 18px 34px -16px rgba(20,32,54,.5);
-    font-weight:700;font-size:13.5px;line-height:1.3;
-    transition:box-shadow .2s ease, filter .2s ease;
+    color:var(--on-gold);border-bottom-color:rgba(36,26,5,.18);
   }
-  .floating-survey:hover{filter:brightness(1.04);box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 22px 40px -16px rgba(20,32,54,.6);}
-  .floating-survey-mark{
-    width:42px;height:42px;border-radius:50%;background:var(--navy);flex:none;
+  .floating-row--accent:hover{filter:brightness(1.04);background:linear-gradient(155deg, #E6C567 0%, var(--gold) 62%, #A9801F 100%);}
+  .floating-row-icon{
+    width:34px;height:34px;border-radius:50%;flex:none;
     display:flex;align-items:center;justify-content:center;
+    background:var(--bg-alt);color:var(--navy);
   }
-  .floating-survey-mark svg{width:22px;height:22px;}
+  .floating-row--accent .floating-row-icon{background:rgba(255,255,255,.4);color:var(--on-gold);}
+  .floating-row-icon svg{width:17px;height:17px;}
+  .floating-row-text{flex:1;display:flex;flex-direction:column;line-height:1.35;min-width:0;}
+  .floating-row-text small{font-size:10.5px;opacity:.8;font-weight:500;}
+  .floating-row-text strong{font-size:13.5px;font-weight:700;}
+  .floating-row-chevron{width:16px;height:16px;flex:none;opacity:.6;}
   @media (max-width:640px){
-    .floating-survey{right:16px;bottom:16px;padding:6px 18px 6px 6px;gap:10px;}
-    .floating-survey-mark{width:36px;height:36px;}
-    .floating-survey-label br{display:none;}
+    .floating-panel{right:14px;bottom:14px;width:200px;}
+    .floating-row{padding:11px 12px;gap:10px;}
+    .floating-row-icon{width:30px;height:30px;}
   }
 
   .nav-toggle{display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--surface);align-items:center;justify-content:center;}
@@ -766,10 +780,22 @@
   </div>
 </footer>
 
-<a id="floatingSurveyBtn" class="floating-survey" href="#survey" data-nav="survey" aria-label="広島みらいアンケートに答える">
-  <span class="floating-survey-mark" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#hm-emblem"/></svg></span>
-  <span class="floating-survey-label">みらいアンケートに<br>答える</span>
-</a>
+<div class="floating-panel" id="floatingPanel">
+  <a id="floatingSurveyRow" class="floating-row floating-row--accent" href="#survey" data-nav="survey">
+    <span class="floating-row-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M8 6h8M8 10h8M8 14h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="4" y="3" width="16" height="18" rx="3" stroke="currentColor" stroke-width="1.8"/></svg>
+    </span>
+    <span class="floating-row-text"><small>広島みらいアンケート</small><strong>アンケートに答える</strong></span>
+    <svg class="floating-row-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+  <a id="floatingContactRow" class="floating-row" href="#contact" data-nav="contact">
+    <span class="floating-row-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <span class="floating-row-text"><strong>お問い合わせ</strong></span>
+    <svg class="floating-row-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
 
 <script>
 (function(){
@@ -1008,7 +1034,8 @@
     });
     document.title = TITLES[name];
     setActiveNav(name);
-    document.getElementById("floatingSurveyBtn").hidden = (name === "survey");
+    document.getElementById("floatingSurveyRow").hidden = (name === "survey");
+    document.getElementById("floatingContactRow").hidden = (name === "contact");
     window.scrollTo({top:0, behavior:"auto"});
   }
 
