@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理画面 | 広島みらいプロジェクト</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --bg-alt:#EEF2F7; --surface:#FFFFFF; --surface-soft:#F5F7FA;
+    --ink:#1A2230; --ink-soft:#5B6472; --navy:#1B3358; --gold:#C9A227; --gold-soft:#F4E9C4;
+    --maroon:#B23A40; --on-navy:#FFFFFF; --on-gold:#241A05; --border:rgba(27,51,88,0.14);
+    --shadow:0 24px 48px -28px rgba(20,32,54,.25); --radius-md:14px; --radius-sm:9px;
+    --font-display:'Zen Kaku Gothic New','Hiragino Sans',sans-serif;
+    --font-body:'Noto Sans JP','Hiragino Sans',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg-alt);color:var(--ink);font-family:var(--font-body);line-height:1.7;}
+  h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;margin:0;}
+  .wrap{max-width:760px;margin:0 auto;padding:48px 24px 96px;}
+  .login-card{max-width:360px;margin:96px auto;background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-md);box-shadow:var(--shadow);padding:36px 32px;}
+  .login-card h1{font-size:20px;margin-bottom:20px;text-align:center;}
+  label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;}
+  input, textarea, select{
+    width:100%;padding:11px 13px;border-radius:var(--radius-sm);border:1px solid var(--border);
+    background:var(--surface-soft);color:var(--ink);font-family:inherit;font-size:14.5px;margin-bottom:14px;
+  }
+  textarea{min-height:80px;resize:vertical;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 22px;
+    border-radius:10px;font-size:14px;font-weight:600;border:1px solid transparent;cursor:pointer;white-space:nowrap;}
+  .btn-primary{background:var(--navy);color:var(--on-navy);width:100%;}
+  .btn-outline{background:transparent;color:var(--navy);border-color:var(--navy);}
+  .btn-danger{background:transparent;color:var(--maroon);border-color:var(--maroon);font-size:12.5px;padding:7px 14px;}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+  .tabs button{font-family:var(--font-body);padding:9px 18px;border-radius:10px;border:1px solid var(--border);
+    background:var(--surface);cursor:pointer;font-size:13.5px;color:var(--ink-soft);}
+  .tabs button.is-active{background:var(--navy);color:var(--on-navy);border-color:var(--navy);}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);
+    box-shadow:var(--shadow);padding:24px 26px;margin-bottom:24px;}
+  .item{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
+    padding:16px 18px;margin-bottom:12px;}
+  .item h4{font-size:14.5px;margin-bottom:4px;}
+  .item p{font-size:13px;color:var(--ink-soft);margin:0;}
+  .item .actions{display:flex;gap:8px;flex:none;}
+  #status{font-size:13px;margin-top:10px;min-height:18px;}
+  #login-error{font-size:13px;color:var(--maroon);margin-top:4px;text-align:center;}
+  .field-row{display:flex;gap:12px;}
+  .field-row > div{flex:1;}
+</style>
+</head>
+<body>
+
+<div id="login-view" class="wrap" hidden>
+  <div class="login-card">
+    <h1>広島みらいプロジェクト<br>管理画面ログイン</h1>
+    <form id="login-form">
+      <label for="admin-password">合言葉(パスワード)</label>
+      <input type="password" id="admin-password" required>
+      <button type="submit" class="btn btn-primary">ログイン</button>
+    </form>
+    <p id="login-error"></p>
+  </div>
+</div>
+
+<div id="panel-view" class="wrap" hidden>
+  <div class="toolbar">
+    <h1 style="font-size:22px;">管理画面</h1>
+    <button id="logout-btn" class="btn btn-outline">ログアウト</button>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="form-wrap"></div>
+  <div id="list-wrap"></div>
+  <p id="status"></p>
+</div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>

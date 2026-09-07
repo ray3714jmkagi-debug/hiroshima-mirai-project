@@ -786,86 +786,68 @@
   var palette = ["var(--gold)","var(--navy)","var(--maroon)"];
   buildRays("hm-rays", 18, 36, 46, 50, 50, palette);
 
-  /* -------- 活動データ -------- */
-  var ACTIVITIES = [
-    {
-      title: "広島OA",
-      role: "スポーツ振興",
-      icon: "🏃",
-      accent: "var(--navy)",
-      desc: "スポーツを通じて世代を越えた交流の場をつくり、広島にアクティブなつながりを増やしていく活動です。",
-      href: "https://site-9012713-3102-4019.mystrikingly.com/",
-      linkLabel: "サイトを見る"
-    },
-    {
-      title: "Life NAVI図鑑",
-      role: "人の魅力を発信",
-      icon: "📖",
-      accent: "var(--gold)",
-      desc: "広島で暮らす一人ひとりの魅力にフォーカスし、写真とストーリーで発信するプロジェクトです。",
-      href: "https://www.instagram.com/life.navi_photography/",
-      linkLabel: "Instagramを見る"
-    },
-    {
-      title: "Twinkle",
-      role: "子育て支援",
-      icon: "✨",
-      accent: "var(--maroon)",
-      desc: "子育て中の家族が安心して頼れる居場所と情報をつくり、地域ぐるみで子育てを支えます。",
-      href: "https://www.instagram.com/twinkle_kosodateshien2024/",
-      linkLabel: "Instagramを見る"
-    },
-    {
-      title: "HBB",
-      role: "女性支援",
-      icon: "🌸",
-      accent: "var(--navy)",
-      desc: "女性同士がつながり、支え合いながら自分らしく挑戦できる環境づくりを行っています。",
-      href: "https://www.instagram.com/hbb202404/",
-      linkLabel: "Instagramを見る"
-    },
-    {
-      title: "その他の活動",
-      role: "ワークショップ・アンケート",
-      icon: "🤝",
-      accent: "var(--gold)",
-      desc: "4つの活動に加えて、みんなで学び合うワークショップの開催や、声を集めるアンケートも実施しています。開催予定はスケジュールページをご覧ください。",
-      href: "#schedule",
-      linkLabel: "スケジュールを見る",
-      internal: true
-    }
-  ];
+  /* -------- 活動データ・スケジュール(Cloudflare D1から取得) --------
+     /admin.html から追加・編集・削除した内容が、/api/content/activities と
+     /api/content/events を通じてそのままここに反映されます。 */
+  var ACTIVITIES = [];
+  var EVENTS = [];
 
   var grid = document.getElementById("activityGrid");
   var footerList = document.getElementById("footerActivities");
-  ACTIVITIES.forEach(function(a){
-    var card = document.createElement("article");
-    card.className = "activity-card reveal";
-    card.style.setProperty("--accent", a.accent);
-    card.innerHTML =
-      '<div class="activity-icon" aria-hidden="true">'+a.icon+'</div>'+
-      '<div class="activity-tags"><span class="tag-pill">'+a.role+'</span></div>'+
-      '<h3>'+a.title+'</h3>'+
-      '<p>'+a.desc+'</p>'+
-      '<a class="activity-link" href="'+a.href+'"'+(a.internal? ' data-nav="'+a.href.replace("#","")+'"':' target="_blank" rel="noopener noreferrer"')+'>'+a.linkLabel+
-      ' <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>';
-    grid.appendChild(card);
+  var contactGrid = document.getElementById("contactGrid");
 
-    if(!a.internal){
-      var li = document.createElement("li");
-      var link = document.createElement("a");
-      link.href = a.href; link.target = "_blank"; link.rel = "noopener noreferrer";
-      link.textContent = a.title;
-      li.appendChild(link);
-      footerList.appendChild(li);
+  function isInternalHref(href){ return !!href && href.charAt(0) === "#"; }
+
+  function renderActivities(){
+    grid.innerHTML = "";
+    footerList.innerHTML = "";
+    contactGrid.innerHTML = "";
+
+    if(!ACTIVITIES.length){
+      grid.innerHTML = '<p style="color:var(--ink-soft)">現在、活動情報を読み込めませんでした。</p>';
+      return;
     }
-  });
 
-  /* -------- 今後のスケジュール(月めくりカレンダー) --------
-     予定が決まったら、この配列に
-     { date:"2026-09-06", time:"10:00〜13:00", title:"...", place:"...", tag:"ワークショップ" }
-     の形で追加してください(dateは YYYY-MM-DD)。過去の日付を入れれば「開催終了」として一覧に残ります。 */
-  var EVENTS = [];
+    ACTIVITIES.forEach(function(a){
+      var internal = isInternalHref(a.href);
+      var card = document.createElement("article");
+      card.className = "activity-card reveal in";
+      card.style.setProperty("--accent", "var(--"+(a.accent || "navy")+")");
+      card.innerHTML =
+        '<div class="activity-icon" aria-hidden="true">'+(a.icon || "🌱")+'</div>'+
+        '<div class="activity-tags"><span class="tag-pill">'+a.role+'</span></div>'+
+        '<h3>'+a.title+'</h3>'+
+        '<p>'+a.description+'</p>'+
+        (a.href ? '<a class="activity-link" href="'+a.href+'"'+(internal? ' data-nav="'+a.href.replace("#","")+'"':' target="_blank" rel="noopener noreferrer"')+'>'+(a.link_label || "詳しく見る")+
+        ' <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' : "");
+      grid.appendChild(card);
+
+      if(!internal && a.href){
+        var li = document.createElement("li");
+        var link = document.createElement("a");
+        link.href = a.href; link.target = "_blank"; link.rel = "noopener noreferrer";
+        link.textContent = a.title;
+        li.appendChild(link);
+        footerList.appendChild(li);
+
+        var ccard = document.createElement("div");
+        ccard.className = "contact-card reveal in";
+        ccard.innerHTML =
+          '<div class="activity-icon" aria-hidden="true">'+(a.icon || "🌱")+'</div>'+
+          '<div><h3>'+a.title+'</h3><span>'+a.role+'</span></div>'+
+          '<a class="link-out" href="'+a.href+'" target="_blank" rel="noopener noreferrer" aria-label="'+a.title+'へのリンクを開く">'+
+          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>';
+        contactGrid.appendChild(ccard);
+      }
+    });
+  }
+
+  fetch("/api/content/activities").then(function(r){ return r.json(); }).then(function(data){
+    ACTIVITIES = data.contents || [];
+    renderActivities();
+  }).catch(function(){
+    renderActivities();
+  });
 
   var today = new Date();
   today.setHours(0,0,0,0);
@@ -928,11 +910,12 @@
       monthEvents.forEach(function (ev) {
         var ed = parseEventDate(ev);
         var isPast = ed < today;
+        var timeLabel = (ev.start_time || "") + (ev.end_time ? "〜" + ev.end_time : "");
         var item = document.createElement("article");
         item.className = "schedule-item reveal in" + (isPast ? " is-past" : "");
         item.innerHTML =
           '<div class="schedule-date"><b>' + (ed.getMonth() + 1) + "/" + ed.getDate() + '</b><span>' + WEEKDAY_JP[ed.getDay()] + '曜</span></div>' +
-          '<div><span class="schedule-tag">' + (isPast ? "開催終了・" : "") + ev.tag + '</span><h4>' + ev.title + '</h4><p>' + ev.time + " ・ " + ev.place + '</p></div>';
+          '<div><span class="schedule-tag">' + (isPast ? "開催終了・" : "") + (ev.tag || "予定") + '</span><h4>' + ev.title + '</h4><p>' + timeLabel + (ev.location ? " ・ " + ev.location : "") + '</p></div>';
         scheduleList.appendChild(item);
       });
     } else {
@@ -955,18 +938,10 @@
   });
   renderCalendar();
 
-  /* -------- お問い合わせ(各活動のInstagram窓口) -------- */
-  var contactGrid = document.getElementById("contactGrid");
-  ACTIVITIES.filter(function(a){ return !a.internal; }).forEach(function(a){
-    var card = document.createElement("div");
-    card.className = "contact-card reveal";
-    card.innerHTML =
-      '<div class="activity-icon" aria-hidden="true">'+a.icon+'</div>'+
-      '<div><h3>'+a.title+'</h3><span>'+a.role+'</span></div>'+
-      '<a class="link-out" href="'+a.href+'" target="_blank" rel="noopener noreferrer" aria-label="'+a.title+'へのリンクを開く">'+
-      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>';
-    contactGrid.appendChild(card);
-  });
+  fetch("/api/content/events").then(function(r){ return r.json(); }).then(function(data){
+    EVENTS = data.contents || [];
+    renderCalendar();
+  }).catch(function(){ /* 取得できない場合は空のカレンダーのまま */ });
 
   /* -------- 表示切り替え(ホーム/活動紹介/スケジュール/アンケート/お問い合わせ) -------- */
   var VIEWS = ["home","activities","schedule","survey","contact"];
