@@ -1,0 +1,1114 @@
+<title>広島みらいプロジェクト</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap');
+
+  :root{
+    --bg:#FFFFFF;
+    --bg-alt:#EEF2F7;
+    --surface:#FFFFFF;
+    --surface-soft:#F5F7FA;
+    --ink:#1A2230;
+    --ink-soft:#5B6472;
+    --navy:#1B3358;
+    --navy-strong:#0E1B30;
+    --gold:#C9A227;
+    --gold-soft:#F4E9C4;
+    --maroon:#B23A40;
+    --on-navy:#FFFFFF;
+    --on-gold:#241A05;
+    --border: rgba(27,51,88,0.14);
+    --shadow: 0 24px 48px -28px rgba(20,32,54,.25);
+    --radius-lg:22px;
+    --radius-md:14px;
+    --radius-sm:9px;
+    --font-display:'Zen Kaku Gothic New','Hiragino Sans','Yu Gothic',sans-serif;
+    --font-body:'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif;
+    color-scheme: light;
+  }
+  /* NESTのブランドサイト(暖色クリーム基調)とは対照的に、白地+紺(navy)を基調としたクールな配色に固定。ダークモードは非対応。 */
+  h1,h2,h3,h4{letter-spacing:-.01em;}
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;margin:0;text-wrap:balance;color:var(--ink);}
+  p{margin:0;}
+  ul{margin:0;padding:0;list-style:none;}
+  button{font-family:inherit;cursor:pointer;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12.5px;letter-spacing:.22em;font-weight:600;color:var(--gold);
+    text-transform:uppercase;
+  }
+  .eyebrow::before{content:"";width:20px;height:1px;background:var(--gold);display:inline-block;}
+  section{position:relative;}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+  [hidden]{display:none!important;}
+
+  /* focus */
+  a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,label:has(input:focus-visible){
+    outline:2px solid var(--gold);outline-offset:3px;border-radius:4px;
+  }
+
+  /* ---------- Header ---------- */
+  header.site{
+    position:sticky;top:0;z-index:40;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .header-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 0;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand-mark{width:42px;height:42px;flex:none;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.3;}
+  .brand-text strong{font-family:var(--font-display);font-size:17px;letter-spacing:.02em;}
+  .brand-text span{font-size:10px;letter-spacing:.18em;color:var(--ink-soft);text-transform:uppercase;}
+  nav.main-nav{display:flex;align-items:center;gap:clamp(14px,2vw,30px);}
+  nav.main-nav a{
+    font-size:clamp(13px,1.1vw,14.5px);font-weight:500;color:var(--ink-soft);position:relative;padding:4px 0;white-space:nowrap;
+  }
+  nav.main-nav a:hover{color:var(--ink);}
+  nav.main-nav a.active{color:var(--navy);}
+  nav.main-nav a.active::after{
+    content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--gold);border-radius:2px;
+  }
+  .header-actions{display:flex;align-items:center;gap:14px;}
+  .icon-btn{
+    width:38px;height:38px;border-radius:50%;border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;color:var(--navy);background:var(--surface);
+    transition:transform .18s ease, background .18s ease;
+  }
+  .icon-btn:hover{transform:translateY(-2px);background:var(--bg-alt);}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 26px;border-radius:12px;font-size:14px;font-weight:600;letter-spacing:.03em;
+    border:1px solid transparent;transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-gold{background:var(--navy);color:var(--on-navy);box-shadow:0 14px 30px -14px rgba(27,51,88,.55);}
+  .btn-gold:hover{box-shadow:0 18px 34px -14px rgba(27,51,88,.65);}
+  .btn-outline{background:transparent;color:var(--gold);border-color:var(--gold);}
+  .btn-outline:hover{background:var(--gold);color:var(--on-gold);}
+  .btn-ghost{background:var(--surface);color:var(--navy);border-color:var(--border);}
+  .btn-block{width:100%;}
+
+  .nav-toggle{display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--surface);align-items:center;justify-content:center;}
+  .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
+    content:"";display:block;width:18px;height:2px;background:var(--ink);position:relative;transition:.2s;
+  }
+  .nav-toggle span::before{position:absolute;top:-6px;}
+  .nav-toggle span::after{position:absolute;top:6px;}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:76px 0 96px;overflow:clip;position:relative;}
+  .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;position:relative;z-index:2;}
+  .hero h1{font-size:clamp(34px,4.6vw,54px);line-height:1.35;margin:18px 0 22px;}
+  .hero h1 em{font-style:normal;color:var(--gold);}
+  .hero p.lead{font-size:16.5px;color:var(--ink-soft);max-width:52ch;margin-bottom:34px;}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-figure{position:relative;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;}
+  .hero-map{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 24px 40px rgba(28,51,87,.2));}
+  .hero-badge{position:absolute;z-index:2;bottom:6px;left:0;background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-md);padding:12px 16px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:center;max-width:78%;}
+  .hero-badge .dot{flex:none;width:10px;height:10px;border-radius:50%;background:var(--maroon);}
+  .hero-badge span{font-size:12.5px;color:var(--ink);line-height:1.5;font-weight:500;}
+
+  /* ---------- Problem / stats section ---------- */
+  .section{padding:88px 0;}
+  .section-alt{background:var(--bg-alt);}
+  .section-head{max-width:640px;margin-bottom:44px;}
+  .section-head h2{font-size:clamp(26px,3.2vw,34px);margin-top:14px;}
+  .section-head p{color:var(--ink-soft);margin-top:16px;font-size:15.5px;}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .stat-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:30px 26px;box-shadow:var(--shadow);
+  }
+  .stat-card b{display:block;font-family:var(--font-display);font-size:clamp(28px,3vw,38px);color:var(--navy);margin-bottom:8px;}
+  .stat-card span{font-size:13.5px;color:var(--ink-soft);}
+  .footnote{margin-top:22px;font-size:12.5px;color:var(--ink-soft);}
+
+  /* ---------- Concept ---------- */
+  .pillars{display:grid;grid-template-columns:1fr auto 1fr;gap:36px;align-items:center;}
+  .pillar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 32px;box-shadow:var(--shadow);}
+  .pillar h3{font-size:22px;margin-bottom:12px;}
+  .pillar p{color:var(--ink-soft);font-size:14.5px;}
+  .pillar .tag{color:var(--gold);font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;}
+  .pillar-divider{width:46px;height:46px;color:var(--maroon);}
+  .quote{
+    margin-top:56px;text-align:center;font-family:var(--font-display);font-size:clamp(20px,2.6vw,28px);
+    color:var(--navy);padding:0 12px;
+  }
+  .quote span{display:block;font-family:var(--font-body);font-size:12.5px;letter-spacing:.16em;color:var(--gold);
+    text-transform:uppercase;margin-bottom:14px;font-weight:600;}
+
+  /* ---------- Activities ---------- */
+  .activity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .activity-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:30px 26px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;
+    border-top:4px solid var(--accent, var(--navy));
+    transition:transform .2s ease;
+  }
+  .activity-card:hover{transform:translateY(-4px);}
+  .activity-icon{
+    width:48px;height:48px;border-radius:14px;background:var(--bg-alt);display:flex;align-items:center;justify-content:center;
+    font-size:22px;
+  }
+  .activity-card h3{font-size:19px;}
+  .activity-card .role{font-size:12px;letter-spacing:.1em;color:var(--ink-soft);text-transform:uppercase;}
+  .activity-card p{color:var(--ink-soft);font-size:14px;flex:1;}
+  .activity-link{font-size:13.5px;font-weight:600;color:var(--navy);display:inline-flex;align-items:center;gap:6px;}
+  .activity-link svg{width:14px;height:14px;transition:transform .15s;}
+  .activity-card:hover .activity-link svg{transform:translateX(3px);}
+  .activity-tags{display:flex;gap:8px;flex-wrap:wrap;}
+  .tag-pill{font-size:11.5px;padding:4px 10px;border-radius:999px;background:var(--bg-alt);color:var(--ink-soft);border:1px solid var(--border);}
+
+  /* ---------- Survey CTA ---------- */
+  .survey-cta{
+    background:linear-gradient(135deg,var(--navy),var(--navy-strong));
+    border-radius:var(--radius-lg);padding:52px 48px;color:var(--on-navy);
+    display:grid;grid-template-columns:1.3fr auto;gap:32px;align-items:center;
+    box-shadow:var(--shadow);
+  }
+  .survey-cta h2{color:var(--on-navy);font-size:clamp(24px,3vw,30px);}
+  .survey-cta p{color:color-mix(in srgb, var(--on-navy) 78%, transparent);margin-top:12px;font-size:14.5px;max-width:52ch;}
+  .survey-cta .eyebrow{color:var(--gold);}
+  .survey-cta .eyebrow::before{background:var(--gold);}
+
+  /* ---------- Explore (home page footer links to the 3 other pages) ---------- */
+  .explore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .explore-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:32px 28px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;
+    border-top:4px solid var(--accent,var(--navy));transition:transform .2s ease;
+  }
+  .explore-card:hover{transform:translateY(-4px);}
+  .explore-card h3{font-size:20px;}
+  .explore-card p{color:var(--ink-soft);font-size:14px;flex:1;}
+  .explore-card .activity-link{font-size:13.5px;font-weight:600;color:var(--navy);display:inline-flex;align-items:center;gap:6px;}
+  .explore-card .activity-link svg{width:14px;height:14px;transition:transform .15s;}
+  .explore-card:hover .activity-link svg{transform:translateX(3px);}
+
+  /* ---------- Page header (used by activities / schedule / contact) ---------- */
+  .page-hero{padding:64px 0 28px;text-align:center;}
+  .page-hero .section-head{margin:0 auto;text-align:center;}
+
+  /* ---------- Schedule: calendar ---------- */
+  .calendar-card{
+    max-width:820px;margin:0 auto 48px;background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:30px 32px;
+  }
+  .calendar-header{display:flex;align-items:center;justify-content:center;gap:22px;margin-bottom:22px;}
+  .calendar-header h3{font-size:19px;min-width:9em;text-align:center;}
+  .cal-nav-btn{
+    width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface-soft);
+    color:var(--navy);display:flex;align-items:center;justify-content:center;flex:none;
+  }
+  .cal-nav-btn:hover{background:var(--bg-alt);}
+  .cal-nav-btn svg{width:16px;height:16px;}
+  .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+  .calendar-weekdays{margin-bottom:6px;}
+  .calendar-weekday{text-align:center;font-size:12px;color:var(--ink-soft);font-weight:600;padding:4px 0;}
+  .calendar-day{
+    aspect-ratio:1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:3px;font-size:13px;color:var(--ink);background:var(--surface-soft);position:relative;
+  }
+  .calendar-day.outside{color:var(--ink-soft);opacity:.4;background:transparent;}
+  .calendar-day.today{box-shadow:inset 0 0 0 2px var(--gold);font-weight:700;}
+  .calendar-day.has-event{background:var(--gold-soft);cursor:default;font-weight:600;}
+  .calendar-day .cal-dot{width:5px;height:5px;border-radius:50%;background:var(--maroon);}
+  .schedule-list-wrap{max-width:760px;margin:0 auto;}
+  .schedule-list-wrap h3{font-size:16px;margin-bottom:18px;text-align:center;color:var(--ink-soft);font-weight:500;}
+  .schedule-list{display:flex;flex-direction:column;gap:18px;}
+  .schedule-item{
+    display:grid;grid-template-columns:120px 1fr;gap:22px;background:var(--surface);
+    border:1px solid var(--border);border-radius:var(--radius-md);padding:22px 26px;box-shadow:var(--shadow);
+  }
+  .schedule-item.is-past{opacity:.6;}
+  .schedule-date{font-family:var(--font-display);color:var(--navy);}
+  .schedule-date b{display:block;font-size:20px;}
+  .schedule-date span{font-size:12px;color:var(--ink-soft);}
+  .schedule-item h4{font-size:16.5px;margin-bottom:6px;font-family:var(--font-display);font-weight:600;}
+  .schedule-item p{font-size:13.5px;color:var(--ink-soft);}
+  .schedule-tag{display:inline-block;font-size:11px;letter-spacing:.06em;color:var(--maroon);background:var(--gold-soft);
+    padding:3px 10px;border-radius:999px;margin-bottom:8px;}
+  .schedule-item.is-past .schedule-tag{color:var(--ink-soft);background:var(--bg-alt);}
+  .schedule-empty{
+    max-width:560px;margin:0 auto;text-align:center;background:var(--surface);border:1px dashed var(--border);
+    border-radius:var(--radius-lg);padding:40px 36px;
+  }
+  .schedule-empty svg{width:40px;height:40px;color:var(--gold);margin:0 auto 16px;}
+  .schedule-empty h4{font-size:17px;margin-bottom:8px;font-family:var(--font-display);}
+  .schedule-empty p{color:var(--ink-soft);font-size:13.5px;}
+
+  /* ---------- Contact ---------- */
+  .main-contact-card{
+    max-width:640px;margin:0 auto 56px;background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:28px 30px;display:flex;align-items:center;gap:18px;
+    transition:transform .2s ease;
+  }
+  .main-contact-card:hover{transform:translateY(-3px);}
+  .main-contact-icon{
+    flex:none;width:52px;height:52px;border-radius:50%;background:var(--bg-alt);color:var(--navy);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .main-contact-text{flex:1;display:flex;flex-direction:column;gap:4px;}
+  .main-contact-text strong{font-family:var(--font-display);font-size:18px;}
+  .main-contact-text span{font-size:13px;color:var(--ink-soft);}
+  .contact-sub{max-width:640px;margin:0 auto 24px;text-align:center;}
+  .contact-sub h3{font-size:17px;margin-bottom:8px;}
+  .contact-sub p{font-size:13.5px;color:var(--ink-soft);}
+  .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:760px;margin:0 auto;}
+  .contact-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);
+    padding:22px 24px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px;
+  }
+  .contact-card .activity-icon{flex:none;}
+  .contact-card h3{font-size:16px;}
+  .contact-card span{font-size:12.5px;color:var(--ink-soft);}
+  .contact-card a.link-out{margin-left:auto;color:var(--navy);flex:none;}
+  .contact-note{max-width:640px;margin:32px auto 0;text-align:center;font-size:13px;color:var(--ink-soft);}
+
+  /* ---------- Footer ---------- */
+  footer.site{background:var(--bg-alt);color:var(--ink);padding:64px 0 28px;margin-top:40px;border-top:3px solid var(--gold);}
+  .footer-grid{display:grid;grid-template-columns:1.4fr .8fr .8fr .8fr;gap:36px;padding-bottom:44px;border-bottom:1px solid var(--border);}
+  .footer-brand{display:flex;gap:12px;align-items:flex-start;}
+  .footer-brand .brand-mark{width:44px;height:44px;}
+  .footer-brand strong{font-family:var(--font-display);font-size:17px;}
+  .footer-brand p{font-size:13.5px;color:var(--ink-soft);margin-top:10px;max-width:34ch;}
+  .footer-col h4{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-strong,var(--gold));margin-bottom:16px;}
+  .footer-col ul{display:flex;flex-direction:column;gap:10px;}
+  .footer-col a{font-size:14px;color:var(--ink-soft);}
+  .footer-col a:hover{color:var(--navy);}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;font-size:12.5px;
+    color:var(--ink-soft);flex-wrap:wrap;gap:10px;}
+
+  /* ---------- Survey page ---------- */
+  .survey-page{padding:64px 0 100px;}
+  .survey-head{max-width:640px;margin:0 auto 40px;text-align:center;}
+  .survey-head h1{font-size:clamp(28px,3.6vw,38px);margin-top:14px;}
+  .survey-head p{color:var(--ink-soft);margin-top:16px;font-size:15px;}
+  .survey-card{
+    max-width:680px;margin:0 auto;background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:44px 40px;
+  }
+  .survey-notice{
+    background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius-md);
+    padding:16px 18px;font-size:13px;color:var(--ink-soft);margin-bottom:32px;line-height:1.7;
+  }
+  .field{margin-bottom:26px;}
+  .field label.field-label{display:block;font-size:14px;font-weight:600;margin-bottom:8px;}
+  .field .req{color:var(--maroon);margin-left:4px;}
+  .field .hint{display:block;font-size:12px;color:var(--ink-soft);margin-top:6px;font-weight:400;}
+  .field input[type="text"],.field input[type="number"],.field textarea{
+    width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);
+    background:var(--surface-soft);color:var(--ink);font-family:inherit;font-size:14.5px;
+  }
+  .field textarea{min-height:96px;resize:vertical;}
+  .radio-row{display:flex;gap:14px;}
+  .radio-pill{
+    flex:1;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;
+    display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;background:var(--surface-soft);
+    transition:border-color .15s, background .15s;
+  }
+  .radio-pill:has(input:checked){border-color:var(--gold);background:var(--gold-soft);}
+  .radio-pill input{accent-color:var(--gold);}
+  .consent-row{
+    display:flex;gap:12px;align-items:flex-start;background:var(--bg-alt);border-radius:var(--radius-md);
+    padding:16px 18px;margin:32px 0 26px;font-size:13px;color:var(--ink-soft);
+  }
+  .consent-row input{margin-top:3px;accent-color:var(--gold);}
+  .field.invalid input, .field.invalid textarea{border-color:var(--maroon);}
+  .field .error-msg{display:none;color:var(--maroon);font-size:12px;margin-top:6px;}
+  .field.invalid .error-msg{display:block;}
+  .survey-success{text-align:center;padding:40px 10px;}
+  .survey-success .mark{width:56px;height:56px;margin:0 auto 18px;color:var(--gold);}
+  .survey-success h2{font-size:24px;margin-bottom:12px;}
+  .survey-success p{color:var(--ink-soft);font-size:14.5px;}
+  .form-error{color:var(--maroon);font-size:13px;margin-bottom:18px;display:none;}
+  .form-error.show{display:block;}
+
+  @media (max-width:920px){
+    nav.main-nav{position:fixed;inset:64px 16px auto 16px;background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--radius-lg);flex-direction:column;align-items:flex-start;padding:18px 20px;box-shadow:var(--shadow);
+      gap:16px;transform:translateY(-12px);opacity:0;pointer-events:none;transition:.18s ease;}
+    nav.main-nav.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+    .nav-toggle{display:flex;}
+    .header-actions .btn-gold{display:none;}
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-figure{order:-1;max-width:360px;margin:0 auto 12px;}
+    .stat-grid{grid-template-columns:1fr;}
+    .pillars{grid-template-columns:1fr;}
+    .pillar-divider{margin:0 auto;transform:rotate(90deg);}
+    .activity-grid{grid-template-columns:1fr;}
+    .explore-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .main-contact-card{flex-wrap:wrap;text-align:center;justify-content:center;}
+    .main-contact-card .btn{width:100%;}
+    .schedule-item{grid-template-columns:1fr;}
+    .calendar-card{padding:20px 14px;}
+    .calendar-day{font-size:11px;}
+    .calendar-header{gap:12px;}
+    .calendar-header h3{font-size:16px;min-width:0;}
+    .survey-cta{grid-template-columns:1fr;text-align:left;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .survey-card{padding:32px 22px;}
+    .radio-row{flex-direction:column;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms!important;transition-duration:.001ms!important;}
+  }
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+</style>
+
+<!-- ================= HEADER ================= -->
+<header class="site">
+  <div class="wrap header-row">
+    <a href="#home" class="brand" data-nav="home">
+      <svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><use href="#hm-emblem"/></svg>
+      <span class="brand-text">
+        <strong>広島みらいプロジェクト</strong>
+        <span>Hiroshima Mirai Project</span>
+      </span>
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="メインナビゲーション">
+      <a href="#home" data-nav="home">理念</a>
+      <a href="#activities" data-nav="activities">活動紹介</a>
+      <a href="#schedule" data-nav="schedule">スケジュール</a>
+      <a href="#survey" data-nav="survey">みらいアンケート</a>
+      <a href="#contact" data-nav="contact">お問い合わせ</a>
+    </nav>
+    <div class="header-actions">
+      <a class="icon-btn" href="https://www.instagram.com/cheering_hiroshima/" target="_blank" rel="noopener noreferrer" aria-label="広島みらいプロジェクト公式Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg>
+      </a>
+      <a class="btn btn-gold" href="#survey" data-nav="survey">アンケートに答える</a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- shared emblem symbol (inspired by the project crest: circle, flame/lotus, radiating marks) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hm-emblem" viewBox="0 0 100 100">
+    <g fill="none" stroke="var(--navy)" stroke-width="2.2">
+      <circle cx="50" cy="50" r="30"/>
+    </g>
+    <g id="hm-rays"></g>
+    <path d="M50 34 C45 42 41 47 41 54 C41 61 45 66 50 66 C55 66 59 61 59 54 C59 47 55 42 50 34Z" fill="var(--gold)"/>
+    <path d="M50 46 C47.5 50 46 53 46 56.5 C46 60.5 47.8 63 50 63 C52.2 63 54 60.5 54 56.5 C54 53 52.5 50 50 46Z" fill="var(--maroon)"/>
+  </symbol>
+</svg>
+
+<main id="view-home">
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="home">
+    <div class="wrap hero-inner">
+      <div>
+        <span class="eyebrow">Hiroshima Mirai Project</span>
+        <h1>広島に、<br><em>つながりの灯</em>を、<br>もう一度。</h1>
+        <p class="lead">コロナ禍で人と人との距離は広がり、広島県の転出超過は5年連続で全国ワースト1位に。<br>
+        だからこそ私たちは、10人以上のフリーランスが集まり、安心して挑戦できるコミュニティを広島につくっています。</p>
+        <div class="hero-cta">
+          <a href="#survey" class="btn btn-gold" data-nav="survey">みらいアンケートに答える</a>
+          <a href="#activities" class="btn btn-outline" data-nav="activities">活動を見る</a>
+        </div>
+      </div>
+      <div class="hero-figure">
+        <img class="hero-map" src="images/hiroshima-map.png" alt="広島県のイラストマップ">
+        <div class="hero-badge"><span class="dot" aria-hidden="true"></span><span>広島県は転出超過が5年連続で全国ワースト1位</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY (課題) ================= -->
+  <section class="section section-alt" id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Why now</span>
+        <h2>なぜ、いま「つながり」なのか。</h2>
+        <p>コロナ禍を経て人との関わりが希薄になり、広島県では人口の転出超過が5年連続で全国ワースト1位という状況が続いています。安心して暮らし、挑戦できるつながりの場が、この街には必要です。</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card reveal"><b>5年連続</b><span>広島県の転出超過が全国ワースト1位</span></div>
+        <div class="stat-card reveal"><b>10人+</b><span>プロジェクトに集まったフリーランスの数</span></div>
+        <div class="stat-card reveal"><b>4団体</b><span>スポーツ・写真・子育て・女性支援で活動中</span></div>
+      </div>
+      <p class="footnote">※ 転出超過に関する数値はプロジェクト提供情報に基づく概数です。最新の統計は総務省・広島県公表資料をご確認ください。</p>
+    </div>
+  </section>
+
+  <!-- ================= CONCEPT ================= -->
+  <section class="section" id="concept">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Concept</span>
+        <h2>楽しむ、が、誰かのお役に立つ。</h2>
+        <p>広島みらいプロジェクトは「楽しむ×お役立ち」を掛け合わせながら、広島を魅力ある場所にし、未来につながるコミュニティを創っていく取り組みです。</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar reveal">
+          <span class="tag">Enjoy</span>
+          <h3>楽しむ</h3>
+          <p>好きなこと・得意なことを軸に人が集まり、肩の力を抜いて関われる場をつくります。無理のない参加が、続くつながりを生みます。</p>
+        </div>
+        <svg class="pillar-divider" viewBox="0 0 100 100" aria-hidden="true"><use href="#hm-emblem"/></svg>
+        <div class="pillar reveal">
+          <span class="tag">Contribute</span>
+          <h3>お役立ち</h3>
+          <p>スポーツ、写真、子育て、女性支援など、それぞれの得意分野で誰かの困りごとに寄り添い、広島の暮らしを支えます。</p>
+        </div>
+      </div>
+      <p class="quote reveal"><span>Our Mission</span>広島を魅力ある場所に。未来につながるコミュニティーを創っていく。</p>
+    </div>
+  </section>
+
+  <!-- ================= EXPLORE (次のページへの導線) ================= -->
+  <section class="section section-alt" id="explore">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Explore</span>
+        <h2>もっと知る、参加する。</h2>
+        <p>広島みらいプロジェクトの活動、これからの予定、そしてあなたの声を聞かせてもらうアンケートです。</p>
+      </div>
+      <div class="explore-grid">
+        <a class="explore-card reveal" href="#activities" data-nav="activities" style="--accent:var(--navy)">
+          <h3>活動紹介</h3>
+          <p>広島OA・Life NAVI図鑑・Twinkle・HBB、4つの活動と、その他の取り組みを紹介します。</p>
+          <span class="activity-link">見てみる <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+        <a class="explore-card reveal" href="#schedule" data-nav="schedule" style="--accent:var(--gold)">
+          <h3>今後のスケジュール</h3>
+          <p>ワークショップや交流会など、これから開催予定のイベント情報をまとめています。</p>
+          <span class="activity-link">見てみる <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+        <a class="explore-card reveal" href="#survey" data-nav="survey" style="--accent:var(--maroon)">
+          <h3>みらいアンケート</h3>
+          <p>「こんなコミュニティがあったら」をぜひ聞かせてください。所要時間は約3分です。</p>
+          <span class="activity-link">答えてみる <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= ACTIVITIES VIEW ================= -->
+<main id="view-activities" hidden>
+  <section class="section page-hero">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Our Activities</span>
+        <h2>活動紹介</h2>
+        <p>広島みらいプロジェクトに集うフリーランスたちが、それぞれの持ち味を活かして運営する4つの活動と、みんなでつくるその他の取り組みです。各活動はInstagramで随時最新情報を発信しています。</p>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="activity-grid" id="activityGrid"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= SCHEDULE VIEW ================= -->
+<main id="view-schedule" hidden>
+  <section class="section page-hero">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Schedule</span>
+        <h2>今後のスケジュール</h2>
+        <p>広島みらいプロジェクトで予定しているワークショップ・交流イベントをご案内します。開催が決まり次第、随時更新します。</p>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="calendar-card reveal">
+        <div class="calendar-header">
+          <button type="button" id="calPrev" class="cal-nav-btn" aria-label="前の月">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <h3 id="calLabel">2026年9月</h3>
+          <button type="button" id="calNext" class="cal-nav-btn" aria-label="次の月">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="calendar-grid calendar-weekdays">
+          <span class="calendar-weekday">日</span><span class="calendar-weekday">月</span><span class="calendar-weekday">火</span>
+          <span class="calendar-weekday">水</span><span class="calendar-weekday">木</span><span class="calendar-weekday">金</span>
+          <span class="calendar-weekday">土</span>
+        </div>
+        <div class="calendar-grid" id="calDays"></div>
+      </div>
+
+      <div class="schedule-list-wrap">
+        <h3 id="scheduleListTitle">今月の予定</h3>
+        <div id="scheduleList"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= CONTACT VIEW ================= -->
+<main id="view-contact" hidden>
+  <section class="section page-hero">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Contact</span>
+        <h2>お問い合わせ</h2>
+        <p>広島みらいプロジェクトのInstagramのDMに、気軽にお問い合わせください。</p>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <a class="main-contact-card reveal" href="https://www.instagram.com/cheering_hiroshima/" target="_blank" rel="noopener noreferrer">
+        <span class="main-contact-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg>
+        </span>
+        <span class="main-contact-text">
+          <strong>@cheering_hiroshima</strong>
+          <span>広島みらいプロジェクト公式Instagram</span>
+        </span>
+        <span class="btn btn-gold">DMを送る</span>
+      </a>
+
+      <div class="contact-sub reveal">
+        <h3>各活動への直接のお問い合わせ</h3>
+        <p>それぞれの活動について直接聞きたいときは、こちらのアカウントからもご連絡いただけます。</p>
+      </div>
+      <div class="contact-grid" id="contactGrid"></div>
+      <p class="contact-note">「広島みらいアンケート」へのご回答も、私たちへの大切な声としていつでも受け付けています。</p>
+    </div>
+  </section>
+</main>
+
+<!-- ================= SURVEY VIEW ================= -->
+<main id="view-survey" hidden>
+  <section class="survey-page">
+    <div class="wrap">
+      <div class="survey-head reveal">
+        <span class="eyebrow">Hiroshima Mirai Survey</span>
+        <h1>広島みらいアンケート</h1>
+        <p>「楽しむ×お役立ち」を合言葉に、広島にもっと「つながり」をつくりたい🌱<br>これからの企画づくりの参考にしたいので、あなたのことを教えてください♩ 所要時間は3分ほどです。</p>
+      </div>
+
+      <div class="survey-card reveal">
+        <div id="surveyFormWrap">
+          <div class="survey-notice">
+            ニックネームやInstagramアカウントなど、教えていただいた情報は広島みらいプロジェクトからのご連絡や企画づくりだけに使わせていただきます。安心してご記入くださいね。
+          </div>
+          <p class="form-error" id="formError">未入力の項目があるみたいです。赤色で示した項目をご確認ください。</p>
+          <form id="surveyForm" novalidate>
+
+            <div class="field" data-required="true">
+              <label class="field-label" for="f-nickname">ニックネームを教えてね<span class="req">必須</span></label>
+              <input type="text" id="f-nickname" name="nickname" autocomplete="off">
+              <span class="error-msg">ニックネームを入力してください。</span>
+            </div>
+
+            <div class="field" data-required="true">
+              <label class="field-label" for="f-instagram">Instagramのアカウントは？<span class="req">必須</span></label>
+              <input type="text" id="f-instagram" name="instagram" placeholder="@your_account" autocomplete="off">
+              <span class="hint">「@」から始まるユーザー名を教えてね。</span>
+              <span class="error-msg">Instagramアカウントを入力してください。</span>
+            </div>
+
+            <div class="field" data-required="true">
+              <label class="field-label" for="f-dm">Instagramでメッセージを送ってもいい？<span class="req">必須</span></label>
+              <div class="radio-row" role="radiogroup" aria-labelledby="f-dm">
+                <label class="radio-pill"><input type="radio" name="dm_ok" value="はい">はい</label>
+                <label class="radio-pill"><input type="radio" name="dm_ok" value="いいえ">いいえ</label>
+              </div>
+              <span class="error-msg">いずれかを選択してください。</span>
+            </div>
+
+            <div class="field" data-required="true">
+              <label class="field-label" for="f-age">年齢を教えてね<span class="req">必須</span></label>
+              <input type="number" id="f-age" name="age" min="0" max="120" inputmode="numeric">
+              <span class="error-msg">年齢を入力してください。</span>
+            </div>
+
+            <div class="field" data-required="true">
+              <label class="field-label" for="f-hometown">出身地はどこ？<span class="req">必須</span></label>
+              <input type="text" id="f-hometown" name="hometown" autocomplete="off">
+              <span class="error-msg">出身地を入力してください。</span>
+            </div>
+
+            <div class="field" data-required="true">
+              <label class="field-label" for="f-history">広島歴は？<span class="req">必須</span></label>
+              <input type="text" id="f-history" name="hiroshima_history" placeholder="例：生まれてから／3年">
+              <span class="error-msg">広島歴を入力してください。</span>
+            </div>
+
+            <div class="field" data-required="true">
+              <label class="field-label" for="f-hobby">趣味は何かな？<span class="req">必須</span></label>
+              <input type="text" id="f-hobby" name="hobby" autocomplete="off">
+              <span class="error-msg">趣味を入力してください。</span>
+            </div>
+
+            <div class="field" data-required="true">
+              <label class="field-label" for="f-club">部活は何かしてた？<span class="req">必須</span></label>
+              <input type="text" id="f-club" name="club" autocomplete="off">
+              <span class="hint">複数ある場合はカンマ「,」で区切って教えてね。</span>
+              <span class="error-msg">部活を入力してください(なければ「なし」)。</span>
+            </div>
+
+            <div class="field" data-required="true">
+              <label class="field-label" for="f-community-form">どんなコミュニティだったら参加したい？<span class="req">必須</span></label>
+              <textarea id="f-community-form" name="community_form"></textarea>
+              <span class="error-msg">希望するコミュニティの形態を入力してください。</span>
+            </div>
+
+            <div class="field" data-required="true">
+              <label class="field-label" for="f-community-do">コミュニティでやってみたいことはある？<span class="req">必須</span></label>
+              <textarea id="f-community-do" name="community_do"></textarea>
+              <span class="error-msg">やってみたいことを入力してください。</span>
+            </div>
+
+            <label class="consent-row">
+              <input type="checkbox" id="f-consent" name="consent">
+              <span>教えていただいた情報は、広島みらいプロジェクトからのご連絡や企画づくりのためだけに使わせていただきます。内容を確認して同意します。</span>
+            </label>
+
+            <button type="submit" class="btn btn-gold btn-block" id="submitBtn">送信する</button>
+          </form>
+        </div>
+
+        <div class="survey-success" id="surveySuccess" hidden>
+          <svg class="mark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M7.5 12.5l3 3 6-6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h2>教えてくれてありがとう！🌱</h2>
+          <p>いただいた声は、広島みらいプロジェクトのこれからの企画づくりに大切に活かしていきますね。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><use href="#hm-emblem"/></svg>
+        <div>
+          <strong>広島みらいプロジェクト</strong>
+          <p>コロナ禍で希薄になったつながりを取り戻し、安心して挑戦できるコミュニティを広島に。10人以上のフリーランスが集まり、未来を考える有志プロジェクトです。</p>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>活動</h4>
+        <ul id="footerActivities"></ul>
+      </div>
+      <div class="footer-col">
+        <h4>プロジェクト</h4>
+        <ul>
+          <li><a href="#home" data-nav="home">理念</a></li>
+          <li><a href="#schedule" data-nav="schedule">今後のスケジュール</a></li>
+          <li><a href="#survey" data-nav="survey">みらいアンケート</a></li>
+          <li><a href="#contact" data-nav="contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>SNS</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/cheering_hiroshima/" target="_blank" rel="noopener noreferrer">@cheering_hiroshima</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> 広島みらいプロジェクト</span>
+      <span>Hiroshima Mirai Project</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* -------- Google スプレッドシート送信先(要設定) --------
+     広島みらいアンケートの回答をGoogleスプレッドシートに送るには、
+     Google Apps Scriptを「ウェブアプリ」として公開したURLをここに設定してください。
+     設定方法は運営者に共有した手順書(GAS設定ガイド)を参照してください。
+  */
+  var CONFIG = {
+    SHEET_ENDPOINT: "" // 例: "https://script.google.com/macros/s/XXXXXXXX/exec"
+  };
+
+  /* -------- 装飾: 放射状の光線(ロゴのモチーフを踏襲、生成的に描画) -------- */
+  function buildRays(svgId, count, rIn, rOut, cx, cy, colorVars){
+    var g = document.getElementById(svgId);
+    if(!g) return;
+    var ns = "http://www.w3.org/2000/svg";
+    for(var i=0;i<count;i++){
+      var angle = (Math.PI*2/count)*i;
+      var isDot = i % 3 === 0;
+      var color = colorVars[i % colorVars.length];
+      if(isDot){
+        var r = 2.4;
+        var dx = cx + Math.cos(angle)*rOut;
+        var dy = cy + Math.sin(angle)*rOut;
+        var circle = document.createElementNS(ns,"circle");
+        circle.setAttribute("cx", dx); circle.setAttribute("cy", dy); circle.setAttribute("r", r);
+        circle.setAttribute("fill", color);
+        g.appendChild(circle);
+      } else {
+        var x1 = cx + Math.cos(angle)*rIn, y1 = cy + Math.sin(angle)*rIn;
+        var x2 = cx + Math.cos(angle)*rOut, y2 = cy + Math.sin(angle)*rOut;
+        var line = document.createElementNS(ns,"line");
+        line.setAttribute("x1",x1); line.setAttribute("y1",y1);
+        line.setAttribute("x2",x2); line.setAttribute("y2",y2);
+        line.setAttribute("stroke", color);
+        line.setAttribute("stroke-width","1.4");
+        line.setAttribute("stroke-linecap","round");
+        line.setAttribute("opacity","0.75");
+        g.appendChild(line);
+      }
+    }
+  }
+  var palette = ["var(--gold)","var(--navy)","var(--maroon)"];
+  buildRays("hm-rays", 18, 36, 46, 50, 50, palette);
+
+  /* -------- 活動データ -------- */
+  var ACTIVITIES = [
+    {
+      title: "広島OA",
+      role: "スポーツ振興",
+      icon: "🏃",
+      accent: "var(--navy)",
+      desc: "スポーツを通じて世代を越えた交流の場をつくり、広島にアクティブなつながりを増やしていく活動です。",
+      href: "https://site-9012713-3102-4019.mystrikingly.com/",
+      linkLabel: "サイトを見る"
+    },
+    {
+      title: "Life NAVI図鑑",
+      role: "人の魅力を発信",
+      icon: "📖",
+      accent: "var(--gold)",
+      desc: "広島で暮らす一人ひとりの魅力にフォーカスし、写真とストーリーで発信するプロジェクトです。",
+      href: "https://www.instagram.com/life.navi_photography/",
+      linkLabel: "Instagramを見る"
+    },
+    {
+      title: "Twinkle",
+      role: "子育て支援",
+      icon: "✨",
+      accent: "var(--maroon)",
+      desc: "子育て中の家族が安心して頼れる居場所と情報をつくり、地域ぐるみで子育てを支えます。",
+      href: "https://www.instagram.com/twinkle_kosodateshien2024/",
+      linkLabel: "Instagramを見る"
+    },
+    {
+      title: "HBB",
+      role: "女性支援",
+      icon: "🌸",
+      accent: "var(--navy)",
+      desc: "女性同士がつながり、支え合いながら自分らしく挑戦できる環境づくりを行っています。",
+      href: "https://www.instagram.com/hbb202404/",
+      linkLabel: "Instagramを見る"
+    },
+    {
+      title: "その他の活動",
+      role: "ワークショップ・アンケート",
+      icon: "🤝",
+      accent: "var(--gold)",
+      desc: "4つの活動に加えて、みんなで学び合うワークショップの開催や、声を集めるアンケートも実施しています。開催予定はスケジュールページをご覧ください。",
+      href: "#schedule",
+      linkLabel: "スケジュールを見る",
+      internal: true
+    }
+  ];
+
+  var grid = document.getElementById("activityGrid");
+  var footerList = document.getElementById("footerActivities");
+  ACTIVITIES.forEach(function(a){
+    var card = document.createElement("article");
+    card.className = "activity-card reveal";
+    card.style.setProperty("--accent", a.accent);
+    card.innerHTML =
+      '<div class="activity-icon" aria-hidden="true">'+a.icon+'</div>'+
+      '<div class="activity-tags"><span class="tag-pill">'+a.role+'</span></div>'+
+      '<h3>'+a.title+'</h3>'+
+      '<p>'+a.desc+'</p>'+
+      '<a class="activity-link" href="'+a.href+'"'+(a.internal? ' data-nav="'+a.href.replace("#","")+'"':' target="_blank" rel="noopener noreferrer"')+'>'+a.linkLabel+
+      ' <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>';
+    grid.appendChild(card);
+
+    if(!a.internal){
+      var li = document.createElement("li");
+      var link = document.createElement("a");
+      link.href = a.href; link.target = "_blank"; link.rel = "noopener noreferrer";
+      link.textContent = a.title;
+      li.appendChild(link);
+      footerList.appendChild(li);
+    }
+  });
+
+  /* -------- 今後のスケジュール(月めくりカレンダー) --------
+     予定が決まったら、この配列に
+     { date:"2026-09-06", time:"10:00〜13:00", title:"...", place:"...", tag:"ワークショップ" }
+     の形で追加してください(dateは YYYY-MM-DD)。過去の日付を入れれば「開催終了」として一覧に残ります。 */
+  var EVENTS = [];
+
+  var today = new Date();
+  today.setHours(0,0,0,0);
+  var calMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+  function parseEventDate(ev){ return new Date(ev.date + "T00:00:00"); }
+
+  function eventsOnDay(y, m, d){
+    return EVENTS.filter(function(ev){
+      var ed = parseEventDate(ev);
+      return ed.getFullYear() === y && ed.getMonth() === m && ed.getDate() === d;
+    });
+  }
+
+  function eventsInMonth(y, m){
+    return EVENTS.filter(function(ev){
+      var ed = parseEventDate(ev);
+      return ed.getFullYear() === y && ed.getMonth() === m;
+    }).sort(function(a,b){ return parseEventDate(a) - parseEventDate(b); });
+  }
+
+  var WEEKDAY_JP = ["日","月","火","水","木","金","土"];
+  var calLabel = document.getElementById("calLabel");
+  var calDays = document.getElementById("calDays");
+  var scheduleList = document.getElementById("scheduleList");
+  var scheduleListTitle = document.getElementById("scheduleListTitle");
+
+  function renderCalendar(){
+    var y = calMonth.getFullYear(), m = calMonth.getMonth();
+    calLabel.textContent = y + "年" + (m + 1) + "月";
+
+    calDays.innerHTML = "";
+    var firstWeekday = new Date(y, m, 1).getDay();
+    var daysInMonth = new Date(y, m + 1, 0).getDate();
+    var daysInPrevMonth = new Date(y, m, 0).getDate();
+    var totalCells = Math.ceil((firstWeekday + daysInMonth) / 7) * 7;
+
+    for (var i = 0; i < totalCells; i++) {
+      var dayNum = i - firstWeekday + 1;
+      var outside = dayNum < 1 || dayNum > daysInMonth;
+      var label = dayNum < 1 ? (daysInPrevMonth + dayNum) : (dayNum > daysInMonth ? dayNum - daysInMonth : dayNum);
+      var cell = document.createElement("div");
+      cell.className = "calendar-day" + (outside ? " outside" : "");
+
+      if (!outside) {
+        var realDate = new Date(y, m, dayNum);
+        var evs = eventsOnDay(y, m, dayNum);
+        if (evs.length) cell.classList.add("has-event");
+        if (realDate.getTime() === today.getTime()) cell.classList.add("today");
+      }
+      cell.innerHTML = "<span>" + label + "</span>" + (cell.classList.contains("has-event") ? '<span class="cal-dot"></span>' : "");
+      calDays.appendChild(cell);
+    }
+
+    var monthEvents = eventsInMonth(y, m);
+    scheduleListTitle.textContent = y + "年" + (m + 1) + "月の予定";
+    scheduleList.innerHTML = "";
+    if (monthEvents.length) {
+      scheduleList.className = "schedule-list";
+      monthEvents.forEach(function (ev) {
+        var ed = parseEventDate(ev);
+        var isPast = ed < today;
+        var item = document.createElement("article");
+        item.className = "schedule-item reveal in" + (isPast ? " is-past" : "");
+        item.innerHTML =
+          '<div class="schedule-date"><b>' + (ed.getMonth() + 1) + "/" + ed.getDate() + '</b><span>' + WEEKDAY_JP[ed.getDay()] + '曜</span></div>' +
+          '<div><span class="schedule-tag">' + (isPast ? "開催終了・" : "") + ev.tag + '</span><h4>' + ev.title + '</h4><p>' + ev.time + " ・ " + ev.place + '</p></div>';
+        scheduleList.appendChild(item);
+      });
+    } else {
+      scheduleList.innerHTML =
+        '<div class="schedule-empty reveal in">' +
+        '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3.2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>' +
+        "<h4>この月の予定はまだありません</h4>" +
+        "<p>日程が決まり次第、このページとInstagramでお知らせします。</p>" +
+        "</div>";
+    }
+  }
+
+  document.getElementById("calPrev").addEventListener("click", function () {
+    calMonth.setMonth(calMonth.getMonth() - 1);
+    renderCalendar();
+  });
+  document.getElementById("calNext").addEventListener("click", function () {
+    calMonth.setMonth(calMonth.getMonth() + 1);
+    renderCalendar();
+  });
+  renderCalendar();
+
+  /* -------- お問い合わせ(各活動のInstagram窓口) -------- */
+  var contactGrid = document.getElementById("contactGrid");
+  ACTIVITIES.filter(function(a){ return !a.internal; }).forEach(function(a){
+    var card = document.createElement("div");
+    card.className = "contact-card reveal";
+    card.innerHTML =
+      '<div class="activity-icon" aria-hidden="true">'+a.icon+'</div>'+
+      '<div><h3>'+a.title+'</h3><span>'+a.role+'</span></div>'+
+      '<a class="link-out" href="'+a.href+'" target="_blank" rel="noopener noreferrer" aria-label="'+a.title+'へのリンクを開く">'+
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>';
+    contactGrid.appendChild(card);
+  });
+
+  /* -------- 表示切り替え(ホーム/活動紹介/スケジュール/アンケート/お問い合わせ) -------- */
+  var VIEWS = ["home","activities","schedule","survey","contact"];
+  var TITLES = {
+    home: "広島みらいプロジェクト",
+    activities: "活動紹介｜広島みらいプロジェクト",
+    schedule: "今後のスケジュール｜広島みらいプロジェクト",
+    survey: "広島みらいアンケート｜広島みらいプロジェクト",
+    contact: "お問い合わせ｜広島みらいプロジェクト"
+  };
+  var navLinks = document.querySelectorAll("[data-nav]");
+
+  function setActiveNav(name){
+    navLinks.forEach(function(l){
+      if(l.tagName === "A" && l.closest("nav")){
+        l.classList.toggle("active", l.getAttribute("data-nav") === name);
+      }
+    });
+  }
+
+  function showView(name){
+    if(VIEWS.indexOf(name) === -1) name = "home";
+    VIEWS.forEach(function(v){
+      document.getElementById("view-"+v).hidden = (v !== name);
+    });
+    document.title = TITLES[name];
+    setActiveNav(name);
+    window.scrollTo({top:0, behavior:"auto"});
+  }
+
+  document.addEventListener("click", function(e){
+    var el = e.target.closest("[data-nav]");
+    if(!el) return;
+    var name = el.getAttribute("data-nav");
+    if(VIEWS.indexOf(name) !== -1){
+      e.preventDefault();
+      history.pushState(null, "", "#"+name);
+      showView(name);
+    }
+    // close mobile nav after click
+    document.getElementById("mainNav").classList.remove("open");
+    navToggle.setAttribute("aria-expanded","false");
+  });
+
+  window.addEventListener("popstate", function(){
+    showView(location.hash.replace("#",""));
+  });
+  showView(location.hash.replace("#",""));
+
+  /* -------- モバイルナビ -------- */
+  var navToggle = document.getElementById("navToggle");
+  var mainNav = document.getElementById("mainNav");
+  navToggle.addEventListener("click", function(){
+    var open = mainNav.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", open ? "true":"false");
+  });
+
+  /* -------- スクロールで表示 -------- */
+  var revealEls = document.querySelectorAll(".reveal");
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, {threshold:.14});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add("in"); });
+  }
+
+  /* -------- アンケートフォーム -------- */
+  var form = document.getElementById("surveyForm");
+  var formError = document.getElementById("formError");
+  var submitBtn = document.getElementById("submitBtn");
+
+  function validate(){
+    var ok = true;
+    var fields = form.querySelectorAll(".field[data-required]");
+    fields.forEach(function(f){
+      var input = f.querySelector("input[type=text], input[type=number], textarea");
+      var radios = f.querySelectorAll("input[type=radio]");
+      var valid = true;
+      if(input){ valid = input.value.trim().length > 0; }
+      else if(radios.length){ valid = Array.prototype.some.call(radios, function(r){return r.checked;}); }
+      f.classList.toggle("invalid", !valid);
+      if(!valid) ok = false;
+    });
+    var consent = document.getElementById("f-consent");
+    if(!consent.checked){ ok = false; }
+    return ok;
+  }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    formError.classList.remove("show");
+    if(!validate()){
+      formError.classList.add("show");
+      var firstInvalid = form.querySelector(".field.invalid");
+      if(firstInvalid) firstInvalid.scrollIntoView({block:"center"});
+      return;
+    }
+
+    var data = new FormData(form);
+    var payload = {};
+    data.forEach(function(v,k){ payload[k]=v; });
+    payload.submitted_at = new Date().toISOString();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "送信中…";
+
+    function finish(){
+      document.getElementById("surveyFormWrap").hidden = true;
+      document.getElementById("surveySuccess").hidden = false;
+    }
+
+    if(!CONFIG.SHEET_ENDPOINT){
+      // 送信先が未設定の間は、入力内容をブラウザに保存して完了画面を表示します。
+      try{
+        var key = "hm_survey_pending";
+        var list = JSON.parse(localStorage.getItem(key) || "[]");
+        list.push(payload);
+        localStorage.setItem(key, JSON.stringify(list));
+      }catch(err){}
+      finish();
+      return;
+    }
+
+    fetch(CONFIG.SHEET_ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify(payload)
+    }).then(function(){
+      finish();
+    }).catch(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = "送信する";
+      formError.textContent = "送信に失敗しました。通信状況をご確認のうえ、もう一度お試しください。";
+      formError.classList.add("show");
+    });
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
