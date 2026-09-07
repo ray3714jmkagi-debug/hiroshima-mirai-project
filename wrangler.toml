@@ -5,4 +5,4 @@ compatibility_date = "2026-09-07"
 [[d1_databases]]
 binding = "DB"
 database_name = "hiroshima-mirai"
-database_id = "REPLACE_AFTER_D1_CREATE"
+database_id = "a935b517-c8bb-4c6c-ad50-dbf3acdbfd45"

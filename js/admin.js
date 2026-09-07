@@ -11,7 +11,7 @@ const FIELD_CONFIG = {
     fields: [
       { key: "title", label: "活動名", type: "text", required: true },
       { key: "role", label: "ひとこと(タグ)", type: "text", required: true },
-      { key: "icon", label: "アイコン(絵文字1つ)", type: "text", required: false },
+      { key: "icon", label: "アイコン(絵文字1つ、または images/xxx.jpg のような画像パス)", type: "text", required: false },
       { key: "description", label: "説明文", type: "textarea", required: true },
       { key: "href", label: "リンク先URL", type: "text", required: false },
       { key: "link_label", label: "リンクの文言", type: "text", required: false },
